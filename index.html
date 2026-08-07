@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rakhshethan Subenthiran — second-year Computer Science student at the University of Warwick seeking software engineering internships and spring weeks.">
+  <meta property="og:title" content="Rakhshethan Subenthiran — Software Engineering Portfolio">
+  <meta property="og:description" content="Projects, experience and education.">
+  <meta property="og:image" content="assets/og.png">
+  <title>Rakhshethan Subenthiran — Software Engineering Portfolio</title>
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav container" aria-label="Primary navigation">
+    <a class="name" href="#top">Rakhshethan Subenthiran</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero container" id="top">
+      <p class="eyebrow">Computer Science · University of Warwick</p>
+      <h1>Rakhshethan Subenthiran</h1>
+      <p class="summary">Second-year Computer Science student seeking software engineering internships and spring weeks. Interested in full-stack development, reliable systems and applied machine learning.</p>
+      <div class="links" aria-label="Profile links">
+        <a class="primary" href="assets/Rakhshethan-Subenthiran-CV.pdf" target="_blank">View CV</a>
+        <a href="https://github.com/rakhshethans" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/rakhshethan-subenthiran-194000297" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:rakhshethans@googlemail.com">Email</a>
+      </div>
+    </header>
+
+    <section class="section container" id="projects">
+      <div class="section-heading"><h2>Projects</h2><p>Selected technical work</p></div>
+      <article class="project">
+        <div class="item-heading">
+          <div><h3>Opportunity Cost Engine</h3><p class="subtitle">Full-Stack Developer · Warwick Finance Societies Hackathon</p></div>
+          <time datetime="2026-03">March 2026</time>
+        </div>
+        <p class="project-intro">A four-person team project that shows what a purchase could have become if the same money had been invested instead.</p>
+
+        <div class="project-facts" aria-label="Project facts">
+          <div><strong>2 days</strong><span>Build time</span></div>
+          <div><strong>4 people</strong><span>Team</span></div>
+        </div>
+
+        <div class="project-showcase">
+          <figure class="project-media">
+            <video controls preload="metadata" playsinline>
+              <source src="assets/opportunity-cost-engine-demo.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <figcaption>Hackathon prototype demonstration</figcaption>
+          </figure>
+
+          <div class="project-details">
+            <h4>What I built</h4>
+            <ul>
+              <li>Built the browser flow for company selection, model controls, time horizons and API submission.</li>
+              <li>Connected Flask outputs to Chart.js, including purchase value, investment projections and uncertainty bands.</li>
+              <li>Created the sentiment feature that adjusts projections using recent company headlines.</li>
+            </ul>
+
+            <div class="feature-note">
+              <h4>Sentiment analysis</h4>
+              <p>The model collects recent headlines with yfinance, scores their polarity with TextBlob and applies a small, capped adjustment to the stock-growth projection.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="tech">Python · Flask · JavaScript · NumPy · scikit-learn · TextBlob · Chart.js</p>
+        <p class="team-note">Team project with Amogh Naik Gaunekar, Alan Siby and Shane Sebastian.</p>
+      </article>
+    </section>
+
+    <section class="section container" id="experience">
+      <div class="section-heading"><h2>Experience</h2><p>Software and technical experience</p></div>
+      <div class="timeline">
+        <article class="experience-item">
+          <div class="item-heading"><div><h3>AI Software Engineering Intern</h3><p class="subtitle">Hexa · London</p></div><time>July–August 2026</time></div>
+          <p>Built and deployed a B2B sales workflow prototype with React and TypeScript, covering RFQ intake, quoting, purchase-order review and delivery.</p>
+        </article>
+
+        <article class="experience-item">
+          <div class="item-heading"><div><h3>Front-End Web Developer Work Experience</h3><p class="subtitle">Marigold · London</p></div><time>July 2024</time></div>
+          <p>Implemented and debugged iframe integrations for client websites, resolving embedded-content, styling and interaction issues.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="education">
+      <div class="section-heading"><h2>Education</h2><p>Academic background</p></div>
+      <article class="education-item">
+        <div class="item-heading"><div><h3>BSc Computer Science</h3><p class="subtitle">University of Warwick</p></div><time>2025–2028</time></div>
+      </article>
+      <article class="education-item">
+        <div class="item-heading"><div><h3>A Levels</h3><p class="subtitle">Wallington County Grammar School</p></div><time>2025</time></div>
+        <p>Computer Science, Mathematics, Further Mathematics and Physics — A*A*AA</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="container">© 2026 Rakhshethan Subenthiran</footer>
+</body>
+</html>
