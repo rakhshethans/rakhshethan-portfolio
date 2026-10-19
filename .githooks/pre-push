@@ -1,0 +1,3 @@
+#!/bin/sh
+# Fail closed: no main pushes, wrong remotes or unverified deployment setup.
+exec node scripts/push-guard.mjs "$@"
