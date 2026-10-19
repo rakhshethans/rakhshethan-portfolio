@@ -91,11 +91,11 @@
           <div class="project-copy">
             <div class="project-category"><svg class="ph-icon category-icon" aria-hidden="true" focusable="false"><use href="#ph-squares-four"></use></svg><span>Computer vision · Desktop app</span></div>
             <h3>Real-Time Audio Narration</h3>
-            <p class="project-intro">Turns webcam scenes into spoken descriptions.</p>
+            <p class="project-intro">A desktop accessibility prototype that turns webcam scenes into spoken descriptions, with vision and speech running locally.</p>
             <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PySide6</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PyTorch</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Qwen3-VL</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Kokoro</span></p>
             <a class="source-link" href="https://github.com/rakhshethans/real-time-audio-narration" target="_blank" rel="noopener noreferrer" aria-label="Real-Time Audio Narration on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
             <div class="project-body">
-            <p class="project-context">Accessibility prototype.</p>
+            <p class="project-context">I separated camera capture from speech playback so narration can finish without interrupting the live feed.</p>
             <details class="build-details">
               <summary>Inside the build <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
               <div class="details-content">
@@ -118,18 +118,18 @@
           <div class="project-copy">
             <div class="project-category"><svg class="ph-icon category-icon" aria-hidden="true" focusable="false"><use href="#ph-squares-four"></use></svg><span>Finance · Hackathon project</span></div>
             <h3>Opportunity Cost Engine</h3>
-            <p class="project-intro">What could a purchase have become if you had invested the money instead?</p>
+            <p class="project-intro">Compares a retail purchase with projected returns from investing the same amount in the retailer’s stock, using three forecasting models.</p>
             <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Flask</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">JavaScript</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">TextBlob</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Chart.js</span></p>
             <a class="source-link" href="https://github.com/rakhshethans/wfshack2026-oppcostengine" target="_blank" rel="noopener noreferrer" aria-label="Opportunity Cost Engine on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
             <div class="project-body">
-            <p class="project-context">Built in two days by a four-person team at the Warwick Finance Societies Hackathon.</p>
+            <p class="project-context">Built in two days by a four-person team at the Warwick Finance Societies Hackathon. I developed most of the front-end and the headline sentiment-analysis pipeline.</p>
             <details class="build-details">
               <summary>My contribution <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
               <div class="details-content">
                 <ul>
-                  <li>Built company selection, forecasting controls and the API submission flow.</li>
-                  <li>Connected Flask projections and uncertainty bands to Chart.js.</li>
-                  <li>Added headline sentiment scoring with TextBlob and a small, capped adjustment to growth projections.</li>
+                  <li>Built the browser flow for company selection, forecasting models, time horizons and API submission.</li>
+                  <li>Integrated Flask endpoints with the JavaScript interface, presenting purchase values, investment projections and uncertainty bands through interactive Chart.js visualisations.</li>
+                  <li>Implemented a lexicon-based sentiment pipeline using yfinance and TextBlob to score recent company headlines and apply a small, capped adjustment to stock-growth projections.</li>
                 </ul>
                 <p>Team project with Amogh Naik Gaunekar, Alan Siby and Shane Sebastian.</p>
               </div>
@@ -166,12 +166,19 @@
         <article class="experience-item">
           <svg class="ph-icon timeline-marker" aria-hidden="true" focusable="false"><use href="#ph-circle"></use></svg>
           <div class="item-heading"><h3>Software Engineering Intern</h3><div class="experience-meta"><p class="company">Hexa <span>· London</span></p><time>July–August 2026</time></div></div>
-          <p>Built and deployed a B2B sales workflow prototype with React and TypeScript, from RFQ intake and quoting to purchase-order review and delivery.</p>
+          <p>Built a React and TypeScript sales prototype for Hexa, an AI automation platform for industrial distributors, covering email and phone orders from request-for-quote intake through quoting, purchase-order review and delivery.</p>
+          <ul class="experience-highlights">
+            <li>Created typed models for orders and calls, separating email and call-processing logic so AI integrations could be added without changing the core application.</li>
+            <li>Deployed a Vercel Preview from a feature branch and validated complete order journeys through end-to-end testing and bug fixes.</li>
+          </ul>
         </article>
         <article class="experience-item">
           <svg class="ph-icon timeline-marker" aria-hidden="true" focusable="false"><use href="#ph-circle"></use></svg>
           <div class="item-heading"><h3>Front-End Web Developer Work Experience</h3><div class="experience-meta"><p class="company">Marigold <span>· London</span></p><time>July 2024</time></div></div>
-          <p>Implemented and debugged iframe integrations for client websites, resolving embedded-content, styling and interaction issues.</p>
+          <p>Supported the development and debugging of iframe-based components that clients could embed into existing websites without modifying their core codebases.</p>
+          <ul class="experience-highlights">
+            <li>Worked through development tasks and shared progress in daily stand-ups.</li>
+          </ul>
         </article>
       </div>
     </section>

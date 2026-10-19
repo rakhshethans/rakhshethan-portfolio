@@ -173,6 +173,8 @@ h3 { font-weight: 500; }
 .experience-band .company, .experience-band .company span, .experience-band time { margin: 0; color: #b7b1ac; font-size: 11px; line-height: 1.6; }
 .experience-band .experience-item .company, .experience-band .experience-item .company span, .experience-band .experience-item time { color: #ff7858; }
 .experience-band .experience-item>p { margin-top: 17px; color: #b7b1ac; font-size: 14px; line-height: 1.75; }
+.experience-highlights { margin: 12px 0 0; padding-left: 20px; color: #b7b1ac; font-size: 14px; line-height: 1.75; }
+.experience-highlights li + li { margin-top: 10px; }
 .education-summary { margin-top: 32px; padding: 22px; border: 1px solid #3d3733; border-radius: 12px; background: #211e1c; color: #f5f2ed; }
 .education-summary>h3 { margin: 0 0 20px; font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .experience-band .education-summary .company { margin: 0; color: #b7b1ac; font-size: 11px; line-height: 1.6; }
@@ -288,6 +290,7 @@ html[data-project-layout="stacked"] .project-media .video-stage { aspect-ratio: 
   .experience-band .background-section { gap: clamp(64px, 5vw, 120px); padding-block: clamp(80px, 6vw, 144px); }
   .experience-band .item-heading h3 { font-size: clamp(23px, 1.5vw, 34px); }
   .experience-band .experience-item>p { max-width: 75ch; font-size: clamp(14px, 1vw, 21px); }
+  .experience-highlights { max-width: 75ch; font-size: clamp(14px, 1vw, 21px); }
   .experience-band .company, .experience-band time, .experience-band .education-summary .company { font-size: clamp(11px, .75vw, 16px); }
   .education-summary { padding: clamp(22px, 2vw, 42px); }
   .education-summary>h3 { font-size: clamp(12px, .8vw, 17px); }
