@@ -181,7 +181,7 @@ if (projectTrack && projectControls) {
         const stage = slide.querySelector('.video-stage');
         const nonVideoHeight = slide.offsetHeight - stage.offsetHeight;
         const available = window.innerHeight - sectionChrome - nonVideoHeight - 8;
-        const demoHeight = Math.max(160, Math.floor(Math.min(available, window.innerHeight * .46)));
+        const demoHeight = Math.max(160, Math.floor(Math.min(available, window.innerHeight * .60)));
         const ratio = 1280 / 900; // Shared frame; recordings remain contained/uncropped.
         // Include the card's horizontal padding and border in its outer width.
         const cardStyle = getComputedStyle(slide);

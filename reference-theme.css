@@ -230,7 +230,7 @@ h3 { font-weight: 500; }
 }
 
 /* Optional comparison at ?layout=stacked; the default split layout is unchanged. */
-html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: 68%; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; align-self: start; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+html[data-project-layout="stacked"] .is-carousel > .project { flex-grow: 1; flex-basis: 68%; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; align-self: start; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
 html[data-project-layout="stacked"] .project-copy { display: contents; }
 html[data-project-layout="stacked"] .project > .project-media,
 html[data-project-layout="stacked"] .project-copy > * { width: 100%; max-width: none; justify-self: stretch; margin: 0; }
@@ -259,4 +259,42 @@ html[data-project-layout="stacked"] .project-media .video-stage { aspect-ratio: 
 }
 @media (min-width: 601px) and (max-width: 850px) {
   html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: min(80%, var(--stacked-slide-width, 80%)); }
+}
+
+/* Shared fluid canvas: do not strand a 1160px site in a wide desktop window. */
+:root { --page-gutter: clamp(18px, 4vw, 96px); }
+.container { width: calc(100% - 2 * var(--page-gutter)); }
+@media (min-width: 1280px) {
+  .nav { min-height: clamp(76px, 6vw, 108px); }
+  .nav-links { gap: clamp(28px, 2.4vw, 48px); font-size: clamp(13px, .85vw, 19px); }
+  .monogram { width: clamp(34px, 2.7vw, 52px); height: clamp(34px, 2.7vw, 52px); font-size: clamp(23px, 1.8vw, 35px); }
+  .hero { padding-block: clamp(24px, 2vw, 44px); }
+  .hero h1 { font-size: clamp(2.6rem, 2.6vw, 4rem); }
+  .hero-intro { max-width: min(46%, 680px); }
+  .hero .summary { max-width: 100%; font-size: clamp(13px, .85vw, 20px); }
+  .hero .availability { font-size: clamp(10px, .65vw, 15px); }
+  .hero-actions { gap: clamp(10px, 1vw, 22px); }
+  .hero-actions .button { min-width: clamp(112px, 9vw, 176px); font-size: clamp(12px, .8vw, 18px); padding: clamp(10px, .8vw, 18px) clamp(16px, 1.3vw, 30px); }
+  .projects-section h2, .experience-band .section-rail h2 { font-size: clamp(66px, 4.5vw, 100px); }
+  .project-controls button { width: clamp(42px, 3vw, 58px); height: clamp(42px, 3vw, 58px); }
+  .project-position { font-size: clamp(12px, .8vw, 17px); }
+  .project-copy h3 { font-size: clamp(36px, 2vw, 48px); }
+  .project-copy .project-intro { font-size: clamp(15px, 1vw, 21px); }
+  .project-copy .project-category { font-size: clamp(11px, .7vw, 15px); }
+  .project-copy .tech { font-size: clamp(10px, .65vw, 14px); }
+  .project-copy .source-link { font-size: clamp(13px, .85vw, 18px); }
+  .project-copy .project-context, .project-media figcaption { font-size: clamp(11px, .75vw, 17px); }
+  .build-details summary, .details-content { font-size: clamp(13px, .85vw, 18px); }
+  .experience-band .background-section { gap: clamp(64px, 5vw, 120px); padding-block: clamp(80px, 6vw, 144px); }
+  .experience-band .item-heading h3 { font-size: clamp(23px, 1.5vw, 34px); }
+  .experience-band .experience-item>p { max-width: 75ch; font-size: clamp(14px, 1vw, 21px); }
+  .experience-band .company, .experience-band time, .experience-band .education-summary .company { font-size: clamp(11px, .75vw, 16px); }
+  .education-summary { padding: clamp(22px, 2vw, 42px); }
+  .education-summary>h3 { font-size: clamp(12px, .8vw, 17px); }
+  .education-summary h4 { font-size: clamp(16px, 1.1vw, 24px); }
+  .experience-band .education-summary time, .experience-band .education-summary .education-subjects { font-size: clamp(12px, .8vw, 18px); }
+  .footer { padding-block: clamp(32px, 2.5vw, 56px); }
+  .footer-cv { font-size: clamp(17px, 1.1vw, 24px); }
+  .footer-links { font-size: clamp(12px, .8vw, 18px); }
+  html[data-project-layout="stacked"] .is-carousel > .project { padding: clamp(20px, 1.6vw, 32px); gap: clamp(10px, .65vw, 15px); }
 }

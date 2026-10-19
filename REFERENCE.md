@@ -2,6 +2,8 @@
 
 ## Current presentation
 
+Responsive canvas (2026-10-19): all major sections now share fluid width with18–96px responsive gutters, removing the old1160px cap. Wide-screen typography, controls and spacing scale within bounded ranges. Stacked cards share available track space equally; when both fit, ordinary page scrolling is used, while overflowing carousels retain pinning when their content fits the screen height. Matching outer cards, contained equal video frames and aligned link/disclosure rows remain. Supersedes older fixed-container descriptions.
+
 Latest media decision (2026-10-19): both stacked carousel video frames now share1280/900 proportions. The shorter finance recording is contained within its frame with black top/bottom bars, without cropping/stretching. Equal outer cards and aligned captions/GitHub/disclosures remain. This supersedes previous independent native-ratio stage descriptions; the recordings themselves are unchanged.
 
 Stacked card rows share measured heights so GitHub links and the first disclosure dividers align across projects, including wrapped mobile text. Native-ratio videos remain top-aligned/uncropped; their height difference becomes a gap below the shorter figure. Shared section margins are unchanged.

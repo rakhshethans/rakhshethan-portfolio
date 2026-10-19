@@ -1,5 +1,13 @@
 # Local portfolio presentation QA
 
+## 2026-10-19: fluid responsive canvas and UI scaling
+
+Replaced the shared1160px container cap with viewport-relative gutters: clamp(18px,4vw,96px). Navigation, hero, Projects, Background and footer now share the expanded canvas. Above1280px, type, buttons, controls and spacing scale within bounded clamps. Stacked cards grow equally to consume unused track width when both projects fit; if they overflow, the existing measured-width carousel/pinning remains. Raised the maximum demo height budget from46% to60% of viewport height, still constrained by measured content. Copy, colours, assets, matched contained video frames and deployment settings are unchanged.
+
+Restarted the localhost-only static server and inspected the rendered local-files flow using the verification checklist. Visually checked full-page screenshots at2557×1333,1680×1050,735×650 and390×844, plus laptop carousel movement at1280×947. At2557px the shared canvas was2350px wide with96px gutters rather than the previous1160px cap; equal cards grew to1159×1264px. At1680px the canvas was1530px and cards749×887px. Both projects fit across these wider tracks, so they use normal vertical reading flow without unnecessary pinning. At1280px pinning remained active (two749px-high cards), horizontal travel48px; scrolling moved to the end and released the section naturally. At735px gutters29.4px; phone gutters18px and equal312×697px cards, unpinned. No page-level horizontal overflow at any measured width, and no captured console warnings/errors. Full-page screenshot capture was used for wide views because ordinary native captures clipped the emulated viewport. JS syntax and10 push-guard tests passed.
+
+Evidence: ../work/responsive-wide-full.png, ../work/responsive-desktop-projects.png, ../work/responsive-narrow.png, ../work/responsive-mobile.png and ../work/responsive-laptop.png. Viewport override reset; local preview retained. Production deployment configuration remains disabled for development.
+
 ## 2026-10-19: identical video frames with letterboxing
 
 At the user's request, the stacked carousel now gives both recordings a shared1280/900 frame, matching the taller narration recording. The finance recording uses black top/bottom bars with object-fit:contain, retaining all footage without stretching or cropping. Shared frame sizing is also used in the viewport width budget; equal outer cards, grey borders, row alignment and shared section margins remain. Source video assets and default split layout are unchanged.
