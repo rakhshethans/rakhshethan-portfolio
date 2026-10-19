@@ -175,6 +175,8 @@ h3 { font-weight: 500; }
 .experience-band .experience-item>p { margin-top: 17px; color: #b7b1ac; font-size: 14px; line-height: 1.75; }
 .experience-highlights { margin: 12px 0 0; padding-left: 20px; color: #b7b1ac; font-size: 14px; line-height: 1.75; }
 .experience-highlights li + li { margin-top: 10px; }
+.details-content h4 { margin: 18px 0 8px; font-size: inherit; font-weight: 600; line-height: 1.5; }
+.details-content h4:first-child { margin-top: 0; }
 .education-summary { margin-top: 32px; padding: 22px; border: 1px solid #3d3733; border-radius: 12px; background: #211e1c; color: #f5f2ed; }
 .education-summary>h3 { margin: 0 0 20px; font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .experience-band .education-summary .company { margin: 0; color: #b7b1ac; font-size: 11px; line-height: 1.6; }

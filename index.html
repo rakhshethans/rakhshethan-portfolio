@@ -95,20 +95,18 @@
             <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PySide6</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PyTorch</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Qwen3-VL</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Kokoro</span></p>
             <a class="source-link" href="https://github.com/rakhshethans/real-time-audio-narration" target="_blank" rel="noopener noreferrer" aria-label="Real-Time Audio Narration on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
             <div class="project-body">
-            <p class="project-context">I separated camera capture from speech playback so narration can finish without interrupting the live feed.</p>
             <details class="build-details">
               <summary>Inside the build <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
               <div class="details-content">
+                <h4>My contribution</h4>
+                <p>Integrated camera input, local scene interpretation and speech output in a PySide6 desktop application.</p>
+                <h4>How it works</h4>
                 <ul>
                   <li>A vision-language model interprets frames; speech synthesis reads its output unchanged. Both run on-device.</li>
-                  <li>Camera capture and speech run separately, so sentences finish without interruption.</li>
                 </ul>
+                <h4>Limitations</h4>
                 <p>Speech begins 6.61 seconds into this demo, excluding model loading. Recognition can invent details: a separate book-photo test produced an unsupported pen reference. Narration is not professional film quality.</p>
               </div>
-            </details>
-            <details class="build-details credits">
-              <summary>Demo details &amp; footage credit <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
-              <div class="details-content"><p>Stock footage by <a href="https://www.pexels.com/video/woman-working-on-the-laptop-5384806/" target="_blank" rel="noopener">Tima Miroshnichenko / Pexels</a>, used under the <a href="https://www.pexels.com/license/" target="_blank" rel="noopener">Pexels licence</a>. Recorded at normal speed with continuous, unretimed app-generated speech; the clip's original audio is omitted. Voice: British-English Emma at 0.98 rate.</p></div>
             </details>
           </div>
           </div>
@@ -122,16 +120,20 @@
             <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Flask</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">JavaScript</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">TextBlob</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Chart.js</span></p>
             <a class="source-link" href="https://github.com/rakhshethans/wfshack2026-oppcostengine" target="_blank" rel="noopener noreferrer" aria-label="Opportunity Cost Engine on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
             <div class="project-body">
-            <p class="project-context">I developed most of the front-end and the headline sentiment-analysis pipeline, connecting Flask endpoints to interactive Chart.js visualisations.</p>
             <details class="build-details">
-              <summary>My contribution <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
+              <summary>Inside the build <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
               <div class="details-content">
+                <h4>My contribution</h4>
                 <ul>
                   <li>Built the browser flow for company selection, forecasting models, time horizons and API submission.</li>
                   <li>Integrated Flask endpoints with the JavaScript interface, presenting purchase values, investment projections and uncertainty bands through interactive Chart.js visualisations.</li>
-                  <li>Implemented a lexicon-based sentiment pipeline using yfinance and TextBlob to score recent company headlines and apply a small, capped adjustment to stock-growth projections.</li>
+                  <li>Implemented the headline sentiment-analysis pipeline using yfinance and TextBlob.</li>
                 </ul>
                 <p>Built in two days by a four-person team at the Warwick Finance Societies Hackathon, with Amogh Naik Gaunekar, Alan Siby and Shane Sebastian.</p>
+                <h4>How it works</h4>
+                <p>Flask returns model projections for the JavaScript interface to visualise in Chart.js. Recent company headlines are scored with TextBlob, providing a small, capped adjustment to stock-growth projections.</p>
+                <h4>Limitations</h4>
+                <p>Projections are illustrative, not guaranteed outcomes. Headline sentiment is an experimental heuristic rather than a validated predictor of future returns.</p>
               </div>
             </details>
           </div>

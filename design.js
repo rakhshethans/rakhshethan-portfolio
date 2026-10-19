@@ -57,6 +57,7 @@ if (projectTrack && projectControls) {
   let pinDistance = 0;
   let manualHorizontal = false;
   let previousWidth = window.innerWidth;
+  let previousHeight = window.innerHeight;
   projectTrack.classList.add('is-carousel');
   projectTrack.setAttribute('role', 'region');
   projectTrack.setAttribute('aria-roledescription', 'carousel');
@@ -74,7 +75,6 @@ if (projectTrack && projectControls) {
   const resetCardRows = () => slides.forEach(slide => {
     slide.style.minHeight = '';
     slide.style.gridTemplateRows = '';
-    slide.querySelector('.project-context').style.minHeight = '';
   });
   const fitHeight = () => {
     const stacked = document.documentElement.dataset.projectLayout === 'stacked';
@@ -84,10 +84,8 @@ if (projectTrack && projectControls) {
       // This aligns media tops, GitHub links and the first disclosure divider.
       const rows = ['.project-category', 'h3', '.project-intro', '.tech', '.project-media', '.source-link'];
       const sizes = rows.map(selector => Math.ceil(Math.max(...slides.map(slide => slide.querySelector(selector).getBoundingClientRect().height))));
-      const contextHeight = Math.ceil(Math.max(...slides.map(slide => slide.querySelector('.project-context').getBoundingClientRect().height)));
       slides.forEach(slide => {
         slide.style.gridTemplateRows = `${sizes.map(size => `${size}px`).join(' ')} auto`;
-        slide.querySelector('.project-context').style.minHeight = `${contextHeight}px`;
       });
     }
     // A constant pinned height prevents the whole section moving between slides.
@@ -173,15 +171,26 @@ if (projectTrack && projectControls) {
     const headingStyle = getComputedStyle(heading);
     const sectionChrome = 28 + heading.offsetHeight
       + parseFloat(headingStyle.marginBottom) + parseFloat(sectionStyle.paddingTop) + parseFloat(sectionStyle.paddingBottom);
+    const previousVideoHeight = projectSection.style.getPropertyValue('--stacked-video-height');
+    const keepPlayerSize = previousVideoHeight && previousWidth === window.innerWidth
+      && previousHeight === window.innerHeight && projectTrack.querySelector('details[open]');
     projectSection.style.removeProperty('--stacked-video-height');
     if (document.documentElement.dataset.projectLayout === 'stacked' && window.innerWidth > 600) {
       // Measure the shared text rows at their final card width. Shrinking card
       // widths made text wrap further, while flex-grow erased the scroll range.
       fitHeight();
+      // Size media from the collapsed card, never from the extra disclosure
+      // content. Opening details must not reset players to their natural size.
+      slides.forEach(slide => { slide.style.minHeight = ''; });
+      const collapsedHeight = Math.max(...slides.map(slide => {
+        const expandedHeight = [...slide.querySelectorAll('details[open]')].reduce((total, details) =>
+          total + details.offsetHeight - details.querySelector('summary').offsetHeight, 0);
+        return slide.offsetHeight - expandedHeight;
+      }));
       const mediaHeight = Math.max(...slides.map(slide => slide.querySelector('.project-media').offsetHeight));
       const captionHeight = Math.max(...slides.map(slide =>
         slide.querySelector('.project-media').offsetHeight - slide.querySelector('.video-stage').offsetHeight));
-      const nonVideoHeight = Math.max(...slides.map(slide => slide.offsetHeight)) - mediaHeight + captionHeight;
+      const nonVideoHeight = collapsedHeight - mediaHeight + captionHeight;
       const available = Math.floor(window.innerHeight - sectionChrome - nonVideoHeight - 8);
       // Cap player height, keeping each player's native recording proportions.
       // Shared media rows align the cards without adding black sidebars.
@@ -190,7 +199,8 @@ if (projectTrack && projectControls) {
       if (available >= 160) {
         const naturalVideoHeight = Math.min(...slides.map(slide =>
           slide.querySelector('.video-stage').offsetHeight));
-        projectSection.style.setProperty('--stacked-video-height', `${Math.min(available, naturalVideoHeight)}px`);
+        projectSection.style.setProperty('--stacked-video-height', keepPlayerSize
+          ? previousVideoHeight : `${Math.min(available, naturalVideoHeight)}px`);
       }
     }
     pinDistance = slideAnchor(slides.length - 1);
@@ -211,6 +221,7 @@ if (projectTrack && projectControls) {
       window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
     }
     previousWidth = window.innerWidth;
+    previousHeight = window.innerHeight;
     if (pinned) followPageScroll();
     else stopMotion();
   };
