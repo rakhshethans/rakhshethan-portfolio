@@ -252,7 +252,9 @@ html[data-project-layout="stacked"] .project-media .finance-stage { --recording-
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }
-  html[data-project-layout="stacked"] .is-carousel > .project { flex: 0 0 60%; gap: 10px; }
+  /* Just over half the track keeps a genuine scroll range for two cards,
+     while removing excess space around their native-proportion players. */
+  html[data-project-layout="stacked"] .is-carousel > .project { flex: 0 0 52%; gap: 10px; }
   html[data-project-layout="stacked"] .project-media figcaption { margin-top: 6px; }
   html[data-project-layout="stacked"] .build-details summary { padding-block: 8px; }
   html[data-project-layout="stacked"] .project-copy .project-context { margin-bottom: 10px; }
