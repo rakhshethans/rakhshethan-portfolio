@@ -2,6 +2,8 @@
 
 ## Current presentation
 
+Latest media decision (2026-10-19): both stacked carousel video frames now share1280/900 proportions. The shorter finance recording is contained within its frame with black top/bottom bars, without cropping/stretching. Equal outer cards and aligned captions/GitHub/disclosures remain. This supersedes previous independent native-ratio stage descriptions; the recordings themselves are unchanged.
+
 Stacked card rows share measured heights so GitHub links and the first disclosure dividers align across projects, including wrapped mobile text. Native-ratio videos remain top-aligned/uncropped; their height difference becomes a gap below the shorter figure. Shared section margins are unchanged.
 
 Current stacked card treatment: matching outer widths/heights, thin grey borders,16px rounded corners and a white surface. Shared width uses the tighter native-ratio height budget; shared height follows the tallest content, including expanded details. Videos retain their different original ratios and remain uncropped, so unused space is inside the outer card rather than added to the video frame. Supersedes earlier individually sized slide widths.

@@ -241,10 +241,11 @@ html[data-project-layout="stacked"] .project-copy .tech { grid-row: 4; }
 html[data-project-layout="stacked"] .project-media { grid-row: 5; align-self: start; }
 html[data-project-layout="stacked"] .project-copy .source-link { grid-row: 6; }
 html[data-project-layout="stacked"] .project-copy .project-body { grid-row: 7; }
-/* Match the actual recording dimensions; never letterbox the player itself. */
+/* Original proportions for the default layout. */
 .project-media .video-stage.narration-stage { aspect-ratio: 1280 / 900; }
 .project-media .video-stage.finance-stage { aspect-ratio: 1728 / 1080; }
-html[data-project-layout="stacked"] .project-media .video-stage { height: auto; max-height: none; }
+/* Equal carousel frames; contain keeps footage uncropped and letterboxes finance. */
+html[data-project-layout="stacked"] .project-media .video-stage { aspect-ratio: 1280 / 900; height: auto; max-height: none; background: #000; }
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }

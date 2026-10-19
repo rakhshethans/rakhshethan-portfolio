@@ -1,5 +1,11 @@
 # Local portfolio presentation QA
 
+## 2026-10-19: identical video frames with letterboxing
+
+At the user's request, the stacked carousel now gives both recordings a shared1280/900 frame, matching the taller narration recording. The finance recording uses black top/bottom bars with object-fit:contain, retaining all footage without stretching or cropping. Shared frame sizing is also used in the viewport width budget; equal outer cards, grey borders, row alignment and shared section margins remain. Source video assets and default split layout are unchanged.
+
+Refreshed and visually verified desktop1280×947 and mobile390×844. Desktop outer cards both589×749px, player frames both547.4×384.89px, object-fit:contain. Pinning remains active; native scrolling reached x30.4px with Projects at top0. Mobile cards both312×697px and players both278×196px; GitHub and first detail dividers remain exactly aligned, with no page overflow and normal unpinned reading flow. Evidence: ../work/carousel-matched-frames-desktop.png and ../work/carousel-matched-frames-mobile.png. Viewport override reset; local preview retained. No deployment configuration changed.
+
 ## 2026-10-18: aligned card links and disclosures
 
 Stacked cards now share measured row heights for category/title/intro/technologies/media/GitHub, plus a common minimum context height so the first disclosure dividers align. Media is top-aligned in its reserved row, without altering either native recording ratio or cropping. Extra height appears below the shorter media figure, not inside the video. Outer equal sizing and shared section margins remain. Rows are cleared before natural remeasurement and rounded upward to avoid subpixel disclosure misalignment.

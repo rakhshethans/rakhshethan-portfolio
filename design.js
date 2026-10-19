@@ -182,14 +182,14 @@ if (projectTrack && projectControls) {
         const nonVideoHeight = slide.offsetHeight - stage.offsetHeight;
         const available = window.innerHeight - sectionChrome - nonVideoHeight - 8;
         const demoHeight = Math.max(160, Math.floor(Math.min(available, window.innerHeight * .46)));
-        const ratio = stage.classList.contains('narration-stage') ? 1280 / 900 : 1728 / 1080;
+        const ratio = 1280 / 900; // Shared frame; recordings remain contained/uncropped.
         // Include the card's horizontal padding and border in its outer width.
         const cardStyle = getComputedStyle(slide);
         const inset = parseFloat(cardStyle.paddingLeft) + parseFloat(cardStyle.paddingRight) + 2;
         return Math.max(320, Math.floor(demoHeight * ratio + inset));
       });
-      // Both outer cards use the tighter shared width, while their videos
-      // retain independent native ratios and natural heights.
+      // Both outer cards and media frames share dimensions. Contained videos
+      // retain their native proportions, with black bars where needed.
       projectSection.style.setProperty('--stacked-slide-width', `${Math.min(...widths)}px`);
     }
     pinDistance = slideAnchor(slides.length - 1);
