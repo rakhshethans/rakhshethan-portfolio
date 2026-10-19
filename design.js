@@ -178,11 +178,14 @@ if (projectTrack && projectControls) {
       // Measure the shared text rows at their final card width. Shrinking card
       // widths made text wrap further, while flex-grow erased the scroll range.
       fitHeight();
-      const nonVideoHeight = Math.max(...slides.map(slide =>
-        slide.offsetHeight - slide.querySelector('.video-stage').offsetHeight));
+      const mediaHeight = Math.max(...slides.map(slide => slide.querySelector('.project-media').offsetHeight));
+      const captionHeight = Math.max(...slides.map(slide =>
+        slide.querySelector('.project-media').offsetHeight - slide.querySelector('.video-stage').offsetHeight));
+      const nonVideoHeight = Math.max(...slides.map(slide => slide.offsetHeight)) - mediaHeight + captionHeight;
       const available = Math.floor(window.innerHeight - sectionChrome - nonVideoHeight - 8);
-      // Equal player frames absorb the remaining height; object-fit: contain
-      // preserves both complete recordings. Expanded/short views remain unpinned
+      // Cap player height, keeping each player's native recording proportions.
+      // Shared media rows align the cards without adding black sidebars.
+      // Expanded/short views remain unpinned
       // when there isn't enough room for a usable player and all the text.
       if (available >= 160) {
         const naturalVideoHeight = Math.min(...slides.map(slide =>

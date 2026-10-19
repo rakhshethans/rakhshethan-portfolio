@@ -247,7 +247,8 @@ html[data-project-layout="stacked"] .project-copy .project-body { grid-row: 7; }
 .project-media .video-stage.narration-stage { aspect-ratio: 1280 / 900; }
 .project-media .video-stage.finance-stage { aspect-ratio: 1728 / 1080; }
 /* Equal carousel frames; contain keeps footage uncropped and letterboxes finance. */
-html[data-project-layout="stacked"] .project-media .video-stage { width: 100%; aspect-ratio: 1280 / 900; height: var(--stacked-video-height, auto); max-height: none; background: #000; }
+html[data-project-layout="stacked"] .project-media .video-stage { --recording-ratio: 1.4222222222; width: min(100%, calc(var(--stacked-video-height, 100000px) * var(--recording-ratio))); aspect-ratio: var(--recording-ratio); height: auto; max-height: none; margin-inline: auto; background: #000; }
+html[data-project-layout="stacked"] .project-media .finance-stage { --recording-ratio: 1.6; }
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }
