@@ -3,109 +3,189 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Rakhshethan Subenthiran — second-year Computer Science student at the University of Warwick seeking software engineering internships and spring weeks.">
-  <meta property="og:title" content="Rakhshethan Subenthiran — Software Engineering Portfolio">
-  <meta property="og:description" content="Projects, experience and education.">
+  <meta name="description" content="Rakhshethan Subenthiran, second-year Computer Science student at the University of Warwick. Software projects, demos and experience.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Rakhshethan Subenthiran | Portfolio">
+  <meta property="og:description" content="Software projects, demos and experience.">
   <meta property="og:image" content="assets/og.png">
-  <title>Rakhshethan Subenthiran — Software Engineering Portfolio</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <title>Local portfolio preview | Rakhshethan Subenthiran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="revamp.css?v=equal-cards-1">
+  <link rel="stylesheet" href="design-theme.css?v=20261017-1">
+  <link rel="stylesheet" href="reference-theme.css?v=project-stacked-fit-29">
 </head>
 <body>
+  <!-- Phosphor Icons, regular weight, v2.1.1. Licence: assets/phosphor/LICENSE. -->
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="ph-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
+    <symbol id="ph-arrow-up" viewBox="0 0 256 256"><path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"/></symbol>
+    <symbol id="ph-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+    <symbol id="ph-pause" viewBox="0 0 256 256"><path d="M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z"/></symbol>
+    <symbol id="ph-play" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></symbol>
+    <symbol id="ph-squares-four" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></symbol>
+    <symbol id="ph-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/></symbol>
+  </svg>
   <a class="skip-link" href="#main">Skip to content</a>
-
+  <div class="opening" id="top">
+  <canvas class="hero-atmosphere" aria-hidden="true" data-state="fallback"></canvas>
+  <div class="preview-note">Local preview <span>·</span> Not published</div>
   <nav class="nav container" aria-label="Primary navigation">
-    <a class="name" href="#top">Rakhshethan Subenthiran</a>
+    <a class="wordmark" href="#top" aria-label="Rakhshethan Subenthiran, back to top"><span class="monogram">rs.</span></a>
     <div class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
+      <a class="nav-glow spotlight-link" href="#projects">Projects</a>
+      <a class="nav-glow spotlight-link" href="#experience">Background</a>
+      <a class="nav-glow spotlight-link" href="https://www.linkedin.com/in/rakhshethan-subenthiran-194000297" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
     </div>
   </nav>
 
-  <main id="main">
-    <header class="hero container" id="top">
-      <p class="eyebrow">Computer Science · University of Warwick</p>
-      <h1>Rakhshethan Subenthiran</h1>
-      <p class="summary">Second-year Computer Science student seeking software engineering internships and spring weeks. Interested in full-stack development, reliable systems and applied machine learning.</p>
-      <div class="links" aria-label="Profile links">
-        <a class="primary" href="assets/Rakhshethan-Subenthiran-CV.pdf?v=20260807" target="_blank">View CV</a>
-        <a href="https://github.com/rakhshethans" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/rakhshethan-subenthiran-194000297" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:rakhshethans@googlemail.com">Email</a>
+    <header class="hero container">
+      <img class="hero-art" src="assets/portfolio-lettering.png" alt="" aria-hidden="true" fetchpriority="high">
+      <button class="atmosphere-toggle" type="button" aria-label="Pause background animation" aria-pressed="false" title="Pause background animation" hidden><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-pause"></use></svg></button>
+      <div class="hero-identity"><h1>Rakhshethan <span>Subenthiran</span></h1></div>
+      <div class="hero-bottom">
+        <div class="hero-intro"><p class="summary">Second-year Computer Science student at the University of Warwick.</p>
+        <p class="availability">Seeking software engineering internships.</p></div>
+        <div class="hero-actions">
+        <a class="button primary hero-glow spotlight-link" href="assets/Rakhshethan-Subenthiran-CV.pdf?v=20260807" target="_blank" rel="noopener">View CV <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
+        <a class="button secondary hero-glow spotlight-link" href="https://github.com/rakhshethans" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
+        </div>
       </div>
     </header>
+  </div>
 
-    <section class="section container" id="projects">
-      <div class="section-heading"><h2>Projects</h2><p>Selected technical work</p></div>
-      <article class="project">
-        <div class="item-heading">
-          <div><h3>Opportunity Cost Engine</h3><p class="subtitle">Full-Stack Developer · Warwick Finance Societies Hackathon</p></div>
-          <time datetime="2026-03">March 2026</time>
+  <div class="content-sheet">
+  <section class="skills-banner" aria-label="Skills and technologies listed on my CV" data-paused="false">
+    <div class="skills-viewport">
+      <div class="skills-track">
+        <ul class="skills-group"><li>Python<span class="skill-separator" aria-hidden="true">·</span></li><li>TypeScript<span class="skill-separator" aria-hidden="true">·</span></li><li>JavaScript<span class="skill-separator" aria-hidden="true">·</span></li><li>Java<span class="skill-separator" aria-hidden="true">·</span></li><li>SQL<span class="skill-separator" aria-hidden="true">·</span></li><li>React<span class="skill-separator" aria-hidden="true">·</span></li><li>Vite<span class="skill-separator" aria-hidden="true">·</span></li><li>Flask<span class="skill-separator" aria-hidden="true">·</span></li><li>Tailwind CSS<span class="skill-separator" aria-hidden="true">·</span></li><li>NumPy<span class="skill-separator" aria-hidden="true">·</span></li><li>Matplotlib<span class="skill-separator" aria-hidden="true">·</span></li><li>scikit-learn<span class="skill-separator" aria-hidden="true">·</span></li><li>Chart.js<span class="skill-separator" aria-hidden="true">·</span></li><li>Git<span class="skill-separator" aria-hidden="true">·</span></li><li>GitHub<span class="skill-separator" aria-hidden="true">·</span></li><li>Vercel<span class="skill-separator" aria-hidden="true">·</span></li><li>Jira<span class="skill-separator" aria-hidden="true">·</span></li></ul>
+        <ul class="skills-group" aria-hidden="true"><li>Python<span class="skill-separator" aria-hidden="true">·</span></li><li>TypeScript<span class="skill-separator" aria-hidden="true">·</span></li><li>JavaScript<span class="skill-separator" aria-hidden="true">·</span></li><li>Java<span class="skill-separator" aria-hidden="true">·</span></li><li>SQL<span class="skill-separator" aria-hidden="true">·</span></li><li>React<span class="skill-separator" aria-hidden="true">·</span></li><li>Vite<span class="skill-separator" aria-hidden="true">·</span></li><li>Flask<span class="skill-separator" aria-hidden="true">·</span></li><li>Tailwind CSS<span class="skill-separator" aria-hidden="true">·</span></li><li>NumPy<span class="skill-separator" aria-hidden="true">·</span></li><li>Matplotlib<span class="skill-separator" aria-hidden="true">·</span></li><li>scikit-learn<span class="skill-separator" aria-hidden="true">·</span></li><li>Chart.js<span class="skill-separator" aria-hidden="true">·</span></li><li>Git<span class="skill-separator" aria-hidden="true">·</span></li><li>GitHub<span class="skill-separator" aria-hidden="true">·</span></li><li>Vercel<span class="skill-separator" aria-hidden="true">·</span></li><li>Jira<span class="skill-separator" aria-hidden="true">·</span></li></ul>
+      </div>
+    </div>
+    <button class="marquee-toggle" type="button" aria-label="Pause technology banner" aria-pressed="false" title="Pause technology banner"><svg class="ph-icon " aria-hidden="true" focusable="false"><use href="#ph-pause"></use></svg></button>
+  </section>
+  <main id="main">
+    <div class="project-scroll-scene">
+    <section class="projects-section container" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <h2 id="projects-title">Projects</h2>
+        <div class="project-controls" hidden>
+          <span class="project-position" role="status" aria-live="polite" aria-atomic="true">1 / 2</span>
+          <button class="project-prev" type="button" aria-label="Previous project" aria-controls="project-slides"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up"></use></svg></button>
+          <button class="project-next" type="button" aria-label="Next project" aria-controls="project-slides"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up"></use></svg></button>
         </div>
-        <p class="project-intro">A four-person team project that shows what a purchase could have become if the same money had been invested instead.</p>
-
-        <div class="project-facts" aria-label="Project facts">
-          <div><strong>2 days</strong><span>Build time</span></div>
-          <div><strong>4 people</strong><span>Team</span></div>
-        </div>
-
-        <div class="project-showcase">
+      </div>
+      <div class="project-grid" id="project-slides">
+        <article class="project" id="audio-narration">
           <figure class="project-media">
-            <video controls preload="metadata" playsinline>
-              <source src="assets/opportunity-cost-engine-demo.mp4" type="video/mp4">
-              Your browser does not support embedded video.
-            </video>
-            <figcaption>Hackathon prototype demonstration</figcaption>
-          </figure>
-
-          <div class="project-details">
-            <h4>What I built</h4>
-            <ul>
-              <li>Built the browser flow for company selection, model controls, time horizons and API submission.</li>
-              <li>Connected Flask outputs to Chart.js, including purchase value, investment projections and uncertainty bands.</li>
-              <li>Created the sentiment feature that adjusts projections using recent company headlines.</li>
-            </ul>
-
-            <div class="feature-note">
-              <h4>Sentiment analysis</h4>
-              <p>The model collects recent headlines with yfinance, scores their polarity with TextBlob and applies a small, capped adjustment to the stock-growth projection.</p>
+            <div class="video-stage narration-stage">
+              <video controls preload="metadata" playsinline poster="assets/audio-narration-close-demo-poster.jpg?v=natural-20261017" aria-label="Real-Time Audio Narration recorded demo">
+                <source src="assets/audio-narration-close-demo.mp4?v=natural-20261017" type="video/mp4">
+                <track kind="captions" src="assets/audio-narration-close-demo.vtt?v=natural-20261017" srclang="en" label="English">
+                <a href="assets/audio-narration-close-demo.mp4">Watch the recorded demo</a>
+              </video>
             </div>
+            <figcaption><span>Sound on</span><a href="assets/audio-narration-close-demo.mp4?v=natural-20261017" target="_blank" rel="noopener">Full screen <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a></figcaption>
+          </figure>
+          <div class="project-copy">
+            <div class="project-category"><svg class="ph-icon category-icon" aria-hidden="true" focusable="false"><use href="#ph-squares-four"></use></svg><span>Computer vision · Desktop app</span></div>
+            <h3>Real-Time Audio Narration</h3>
+            <p class="project-intro">Turns webcam scenes into spoken descriptions.</p>
+            <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PySide6</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">PyTorch</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Qwen3-VL</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Kokoro</span></p>
+            <a class="source-link" href="https://github.com/rakhshethans/real-time-audio-narration" target="_blank" rel="noopener noreferrer" aria-label="Real-Time Audio Narration on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
+            <div class="project-body">
+            <p class="project-context">Accessibility prototype.</p>
+            <details class="build-details">
+              <summary>Inside the build <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
+              <div class="details-content">
+                <ul>
+                  <li>A vision-language model interprets frames; speech synthesis reads its output unchanged. Both run on-device.</li>
+                  <li>Camera capture and speech run separately, so sentences finish without interruption.</li>
+                </ul>
+                <p>Speech begins 6.61 seconds into this demo, excluding model loading. Recognition can invent details: a separate book-photo test produced an unsupported pen reference. Narration is not professional film quality.</p>
+              </div>
+            </details>
+            <details class="build-details credits">
+              <summary>Demo details &amp; footage credit <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
+              <div class="details-content"><p>Stock footage by <a href="https://www.pexels.com/video/woman-working-on-the-laptop-5384806/" target="_blank" rel="noopener">Tima Miroshnichenko / Pexels</a>, used under the <a href="https://www.pexels.com/license/" target="_blank" rel="noopener">Pexels licence</a>. Recorded at normal speed with continuous, unretimed app-generated speech; the clip's original audio is omitted. Voice: British-English Emma at 0.98 rate.</p></div>
+            </details>
           </div>
-        </div>
-
-        <p class="tech">Python · Flask · JavaScript · NumPy · scikit-learn · TextBlob · Chart.js</p>
-        <p class="team-note">Team project with Amogh Naik Gaunekar, Alan Siby and Shane Sebastian.</p>
-      </article>
-    </section>
-
-    <section class="section container" id="experience">
-      <div class="section-heading"><h2>Experience</h2><p>Software and technical experience</p></div>
-      <div class="timeline">
-        <article class="experience-item">
-          <div class="item-heading"><div><h3>Software Engineering Intern</h3><p class="subtitle">Hexa · London</p></div><time>July–August 2026</time></div>
-          <p>Built and deployed a B2B sales workflow prototype with React and TypeScript, covering RFQ intake, quoting, purchase-order review and delivery.</p>
+          </div>
         </article>
 
+        <article class="project project-reversed" id="opportunity-cost">
+          <div class="project-copy">
+            <div class="project-category"><svg class="ph-icon category-icon" aria-hidden="true" focusable="false"><use href="#ph-squares-four"></use></svg><span>Finance · Hackathon project</span></div>
+            <h3>Opportunity Cost Engine</h3>
+            <p class="project-intro">What could a purchase have become if you had invested the money instead?</p>
+            <p class="tech"><span class="tech-tag">Python</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Flask</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">JavaScript</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">TextBlob</span> <span class="tech-separator" aria-hidden="true">·</span> <span class="tech-tag">Chart.js</span></p>
+            <a class="source-link" href="https://github.com/rakhshethans/wfshack2026-oppcostengine" target="_blank" rel="noopener noreferrer" aria-label="Opportunity Cost Engine on GitHub">GitHub <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a>
+            <div class="project-body">
+            <p class="project-context">Built in two days by a four-person team at the Warwick Finance Societies Hackathon.</p>
+            <details class="build-details">
+              <summary>My contribution <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-plus"></use></svg></span></summary>
+              <div class="details-content">
+                <ul>
+                  <li>Built company selection, forecasting controls and the API submission flow.</li>
+                  <li>Connected Flask projections and uncertainty bands to Chart.js.</li>
+                  <li>Added headline sentiment scoring with TextBlob and a small, capped adjustment to growth projections.</li>
+                </ul>
+                <p>Team project with Amogh Naik Gaunekar, Alan Siby and Shane Sebastian.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+          <figure class="project-media">
+            <div class="video-stage finance-stage">
+              <video controls preload="metadata" playsinline aria-label="Opportunity Cost Engine recorded demo">
+                <source src="assets/opportunity-cost-engine-demo.mp4" type="video/mp4">
+                <a href="assets/opportunity-cost-engine-demo.mp4">Watch the recorded demo</a>
+              </video>
+            </div>
+            <figcaption><span>Hackathon prototype demo</span><a href="assets/opportunity-cost-engine-demo.mp4" target="_blank" rel="noopener">Full screen <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a></figcaption>
+          </figure>
+        </article>
+      </div>
+    </section>
+    </div>
+
+    <div class="experience-band">
+    <section class="background-section container" id="experience" aria-labelledby="experience-title">
+      <div class="section-rail">
+        <h2 id="experience-title">Background</h2>
+        <section class="education-summary" id="education" aria-labelledby="education-title">
+          <h3 id="education-title">Education</h3>
+          <div class="education-list">
+            <article class="education-item"><p class="company">University of Warwick</p><h4>BSc Computer Science</h4><time>2025–2028</time></article>
+            <article class="education-item"><p class="company">Wallington County Grammar School</p><h4>A Levels</h4><time>2025</time><p class="education-subjects">Computer Science, Mathematics, Further Mathematics and Physics · A*A*AA</p></article>
+          </div>
+        </section>
+      </div>
+      <div class="experience-list">
         <article class="experience-item">
-          <div class="item-heading"><div><h3>Front-End Web Developer Work Experience</h3><p class="subtitle">Marigold · London</p></div><time>July 2024</time></div>
+          <svg class="ph-icon timeline-marker" aria-hidden="true" focusable="false"><use href="#ph-circle"></use></svg>
+          <div class="item-heading"><h3>Software Engineering Intern</h3><div class="experience-meta"><p class="company">Hexa <span>· London</span></p><time>July–August 2026</time></div></div>
+          <p>Built and deployed a B2B sales workflow prototype with React and TypeScript, from RFQ intake and quoting to purchase-order review and delivery.</p>
+        </article>
+        <article class="experience-item">
+          <svg class="ph-icon timeline-marker" aria-hidden="true" focusable="false"><use href="#ph-circle"></use></svg>
+          <div class="item-heading"><h3>Front-End Web Developer Work Experience</h3><div class="experience-meta"><p class="company">Marigold <span>· London</span></p><time>July 2024</time></div></div>
           <p>Implemented and debugged iframe integrations for client websites, resolving embedded-content, styling and interaction issues.</p>
         </article>
       </div>
     </section>
-
-    <section class="section container" id="education">
-      <div class="section-heading"><h2>Education</h2><p>Academic background</p></div>
-      <article class="education-item">
-        <div class="item-heading"><div><h3>BSc Computer Science</h3><p class="subtitle">University of Warwick</p></div><time>2025–2028</time></div>
-      </article>
-      <article class="education-item">
-        <div class="item-heading"><div><h3>A Levels</h3><p class="subtitle">Wallington County Grammar School</p></div><time>2025</time></div>
-        <p>Computer Science, Mathematics, Further Mathematics and Physics — A*A*AA</p>
-      </article>
-    </section>
+    </div>
 
   </main>
 
-  <footer class="container">© 2026 Rakhshethan Subenthiran</footer>
+  <footer class="footer container">
+    <div><a class="footer-cv" href="assets/Rakhshethan-Subenthiran-CV.pdf?v=20260807" target="_blank" rel="noopener">A closer look? View my CV <span aria-hidden="true"><svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></span></a><p>© 2026 Rakhshethan Subenthiran</p></div>
+    <div class="footer-links"><a href="https://www.linkedin.com/in/rakhshethan-subenthiran-194000297" target="_blank" rel="noopener noreferrer">LinkedIn <svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></a><a href="mailto:rakhshethans@googlemail.com">Email <svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up-right"></use></svg></a><a href="#top">Back to top <svg class="ph-icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-up"></use></svg></a></div>
+  </footer>
+  </div>
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="design.js?v=project-stacked-fit-11" defer></script>
+  <script src="velaris.js?v=1" defer></script>
 </body>
 </html>
