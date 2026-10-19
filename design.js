@@ -173,24 +173,22 @@ if (projectTrack && projectControls) {
     const headingStyle = getComputedStyle(heading);
     const sectionChrome = 28 + heading.offsetHeight
       + parseFloat(headingStyle.marginBottom) + parseFloat(sectionStyle.paddingTop) + parseFloat(sectionStyle.paddingBottom);
+    projectSection.style.removeProperty('--stacked-video-height');
     if (document.documentElement.dataset.projectLayout === 'stacked' && window.innerWidth > 600) {
-      // Fit by narrowing the whole slide, not by imposing a mismatched player
-      // height. Keep a readable minimum width; short screens can safely unpin.
-      resetCardRows();
-      const widths = slides.map(slide => {
-        const stage = slide.querySelector('.video-stage');
-        const nonVideoHeight = slide.offsetHeight - stage.offsetHeight;
-        const available = window.innerHeight - sectionChrome - nonVideoHeight - 8;
-        const demoHeight = Math.max(160, Math.floor(Math.min(available, window.innerHeight * .60)));
-        const ratio = 1280 / 900; // Shared frame; recordings remain contained/uncropped.
-        // Include the card's horizontal padding and border in its outer width.
-        const cardStyle = getComputedStyle(slide);
-        const inset = parseFloat(cardStyle.paddingLeft) + parseFloat(cardStyle.paddingRight) + 2;
-        return Math.max(320, Math.floor(demoHeight * ratio + inset));
-      });
-      // Both outer cards and media frames share dimensions. Contained videos
-      // retain their native proportions, with black bars where needed.
-      projectSection.style.setProperty('--stacked-slide-width', `${Math.min(...widths)}px`);
+      // Measure the shared text rows at their final card width. Shrinking card
+      // widths made text wrap further, while flex-grow erased the scroll range.
+      fitHeight();
+      const nonVideoHeight = Math.max(...slides.map(slide =>
+        slide.offsetHeight - slide.querySelector('.video-stage').offsetHeight));
+      const available = Math.floor(window.innerHeight - sectionChrome - nonVideoHeight - 8);
+      // Equal player frames absorb the remaining height; object-fit: contain
+      // preserves both complete recordings. Expanded/short views remain unpinned
+      // when there isn't enough room for a usable player and all the text.
+      if (available >= 160) {
+        const naturalVideoHeight = Math.min(...slides.map(slide =>
+          slide.querySelector('.video-stage').offsetHeight));
+        projectSection.style.setProperty('--stacked-video-height', `${Math.min(available, naturalVideoHeight)}px`);
+      }
     }
     pinDistance = slideAnchor(slides.length - 1);
     fitHeight();

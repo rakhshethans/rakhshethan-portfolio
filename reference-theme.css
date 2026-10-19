@@ -247,11 +247,11 @@ html[data-project-layout="stacked"] .project-copy .project-body { grid-row: 7; }
 .project-media .video-stage.narration-stage { aspect-ratio: 1280 / 900; }
 .project-media .video-stage.finance-stage { aspect-ratio: 1728 / 1080; }
 /* Equal carousel frames; contain keeps footage uncropped and letterboxes finance. */
-html[data-project-layout="stacked"] .project-media .video-stage { aspect-ratio: 1280 / 900; height: auto; max-height: none; background: #000; }
+html[data-project-layout="stacked"] .project-media .video-stage { width: 100%; aspect-ratio: 1280 / 900; height: var(--stacked-video-height, auto); max-height: none; background: #000; }
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }
-  html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: min(68%, var(--stacked-slide-width, 68%)); gap: 10px; }
+  html[data-project-layout="stacked"] .is-carousel > .project { flex: 0 0 60%; gap: 10px; }
   html[data-project-layout="stacked"] .project-media figcaption { margin-top: 6px; }
   html[data-project-layout="stacked"] .build-details summary { padding-block: 8px; }
   html[data-project-layout="stacked"] .project-copy .project-context { margin-bottom: 10px; }
@@ -260,7 +260,7 @@ html[data-project-layout="stacked"] .project-media .video-stage { aspect-ratio: 
   html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: 92%; gap: 14px; padding: 16px; }
 }
 @media (min-width: 601px) and (max-width: 850px) {
-  html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: min(80%, var(--stacked-slide-width, 80%)); }
+  html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: 80%; }
 }
 
 /* Shared fluid canvas: do not strand a 1160px site in a wide desktop window. */
