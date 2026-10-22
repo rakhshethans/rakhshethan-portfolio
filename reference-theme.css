@@ -245,12 +245,11 @@ html[data-project-layout="stacked"] .project-copy .tech { grid-row: 4; }
 html[data-project-layout="stacked"] .project-media { grid-row: 5; align-self: start; }
 html[data-project-layout="stacked"] .project-copy .source-link { grid-row: 6; }
 html[data-project-layout="stacked"] .project-copy .project-body { grid-row: 7; }
-/* Original proportions for the default layout. */
+/* Matching player frames; contain adds top/bottom bars to the wider finance recording. */
 .project-media .video-stage.narration-stage { aspect-ratio: 1280 / 900; }
-.project-media .video-stage.finance-stage { aspect-ratio: 1728 / 1080; }
-/* Full-width native recording proportions, with no crop or added sidebars. */
+.project-media .video-stage.finance-stage { aspect-ratio: 1280 / 900; background: #000; }
+/* Full-width equal-height frames. The footage itself remains uncropped. */
 html[data-project-layout="stacked"] .project-media .video-stage { --recording-ratio: 1.4222222222; width: 100%; aspect-ratio: var(--recording-ratio); height: auto; max-height: none; margin-inline: auto; background: #000; }
-html[data-project-layout="stacked"] .project-media .finance-stage { --recording-ratio: 1.6; }
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }

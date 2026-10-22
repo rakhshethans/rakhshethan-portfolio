@@ -1,3 +1,11 @@
+// The opening scroll buffer is part of the scene, not a wheel-event lock.
+function projectScrollOffset(pageOffset, leadIn, distance) {
+  return Math.max(0, Math.min(distance, pageOffset - leadIn));
+}
+function projectPageOffset(horizontalOffset, leadIn) {
+  return horizontalOffset > 0 ? leadIn + horizontalOffset : 0;
+}
+
 // Comparison-only layout: the default portfolio remains side by side.
 if (new URLSearchParams(window.location.search).get('layout') === 'stacked') {
   document.documentElement.dataset.projectLayout = 'stacked';
@@ -95,8 +103,10 @@ if (projectTrack && projectControls) {
   let pinned = false;
   let pinStart = 0;
   let pinDistance = 0;
+  let pinLeadIn = 0;
   let manualHorizontal = false;
   let previousWidth = window.innerWidth;
+  let previousHeight = window.innerHeight;
   projectTrack.classList.add('is-carousel');
   projectTrack.setAttribute('role', 'region');
   projectTrack.setAttribute('aria-roledescription', 'carousel');
@@ -184,7 +194,7 @@ if (projectTrack && projectControls) {
   };
   const followPageScroll = () => {
     if (!pinned || manualHorizontal) return;
-    motionTarget = Math.max(0, Math.min(pinDistance, window.scrollY - pinStart));
+    motionTarget = projectScrollOffset(window.scrollY - pinStart, pinLeadIn, pinDistance);
     if (!motionFrame && Math.abs(motionTarget - projectTrack.scrollLeft) >= 1) {
       motionTime = 0;
       motionFrame = requestAnimationFrame(animateHorizontal);
@@ -195,7 +205,7 @@ if (projectTrack && projectControls) {
     manualHorizontal = false;
     const target = Math.max(0, Math.min(index, slides.length - 1));
     const behavior = smooth && !reduceMotion.matches ? 'smooth' : 'instant';
-    if (pinned) window.scrollTo({ top: pinStart + slideAnchor(target), behavior });
+    if (pinned) window.scrollTo({ top: pinStart + projectPageOffset(slideAnchor(target), pinLeadIn), behavior });
     else {
       projectTrack.style.height = `${Math.max(slides[current].offsetHeight, slides[target].offsetHeight) + 28}px`;
       projectTrack.scrollTo({ left: slideAnchor(target), behavior });
@@ -211,7 +221,7 @@ if (projectTrack && projectControls) {
   const refreshPinLayout = () => {
     layoutFrame = 0;
     const wasPinned = pinned;
-    const wasInside = wasPinned && window.scrollY >= pinStart && window.scrollY <= pinStart + pinDistance;
+    const wasInside = wasPinned && window.scrollY >= pinStart && window.scrollY <= pinStart + pinLeadIn + pinDistance;
     const fraction = pinDistance ? projectTrack.scrollLeft / pinDistance : 0;
     const before = projectSection.getBoundingClientRect();
     const heading = projectSection.querySelector('.section-heading');
@@ -225,20 +235,24 @@ if (projectTrack && projectControls) {
     fitHeight();
     const naturalHeight = Math.max(...slides.map(slide => slide.offsetHeight)) + sectionChrome;
     pinned = window.innerWidth > 600 && !reduceMotion.matches && pinDistance > 0 && naturalHeight <= window.innerHeight;
+    // Let the first complete card settle into view before horizontal travel.
+    // Continued native scroll consumes this short, viewport-scaled lead-in.
+    pinLeadIn = pinned ? Math.round(Math.max(180, Math.min(360, window.innerHeight * .35))) : 0;
     projectScene.classList.toggle('is-pinned', pinned);
-    projectScene.style.height = pinned ? `${window.innerHeight + pinDistance}px` : '';
+    projectScene.style.height = pinned ? `${window.innerHeight + pinLeadIn + pinDistance}px` : '';
     syncVisibleSlides();
     pinStart = projectScene.getBoundingClientRect().top + window.scrollY;
     if (wasInside && !pinned) {
       // Tall expanded content must remain readable in normal vertical flow.
       stopMotion();
       window.scrollTo({ top: pinStart, behavior: 'instant' });
-    } else if (wasInside && pinned && previousWidth !== window.innerWidth) {
-      window.scrollTo({ top: pinStart + fraction * pinDistance, behavior: 'instant' });
+    } else if (wasInside && pinned && (previousWidth !== window.innerWidth || previousHeight !== window.innerHeight)) {
+      window.scrollTo({ top: pinStart + projectPageOffset(fraction * pinDistance, pinLeadIn), behavior: 'instant' });
     } else if (!wasPinned && pinned && before.top < window.innerHeight && before.bottom > 0 && window.scrollY >= pinStart - 40) {
-      window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
+      window.scrollTo({ top: pinStart + projectPageOffset(projectTrack.scrollLeft, pinLeadIn), behavior: 'instant' });
     }
     previousWidth = window.innerWidth;
+    previousHeight = window.innerHeight;
     if (pinned) followPageScroll();
     else stopMotion();
   };
@@ -278,7 +292,7 @@ if (projectTrack && projectControls) {
   projectTrack.addEventListener('scroll', () => {
     if (!scrollFrame) scrollFrame = requestAnimationFrame(() => {
       scrollFrame = 0;
-      if (pinned && manualHorizontal) window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
+      if (pinned && manualHorizontal) window.scrollTo({ top: pinStart + projectPageOffset(projectTrack.scrollLeft, pinLeadIn), behavior: 'instant' });
       syncVisibleSlides();
       const nearest = slides.reduce((best, slide, i) => Math.abs(slideAnchor(i) - projectTrack.scrollLeft) < Math.abs(slideAnchor(best) - projectTrack.scrollLeft) ? i : best, 0);
       if (nearest !== current) update(nearest);
