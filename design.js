@@ -84,6 +84,7 @@ if (projectTrack && projectControls) {
   const projectSection = projectTrack.closest('.projects-section');
   const projectScene = projectSection.parentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const compactProjects = window.matchMedia('(min-width: 1000px) and (max-height: 950px)');
   let current = 0;
   let scrollFrame = 0;
   let motionFrame = 0;
@@ -121,10 +122,17 @@ if (projectTrack && projectControls) {
       resetCardRows();
       // Share row heights across cards rather than changing either recording.
       // This aligns media tops, GitHub links and the first disclosure divider.
-      const rows = ['.project-category', 'h3', '.project-intro', '.tech', '.project-media', '.source-link'];
+      // Short desktop windows put the complete video beside the copy. Its
+      // spanning grid area contributes its natural height without fixed frames.
+      const compact = compactProjects.matches;
+      const rows = compact
+        ? ['.project-category', 'h3', '.project-intro', '.tech', '.source-link', '.project-body']
+        : ['.project-category', 'h3', '.project-intro', '.tech', '.project-media', '.source-link'];
       const sizes = rows.map(selector => Math.ceil(Math.max(...slides.map(slide => slide.querySelector(selector).getBoundingClientRect().height))));
       slides.forEach(slide => {
-        slide.style.gridTemplateRows = `${sizes.map(size => `${size}px`).join(' ')} auto`;
+        slide.style.gridTemplateRows = compact
+          ? sizes.map(size => `minmax(${size}px, auto)`).join(' ')
+          : `${sizes.map(size => `${size}px`).join(' ')} auto`;
       });
     }
     // A constant pinned height prevents the whole section moving between slides.
