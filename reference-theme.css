@@ -248,18 +248,35 @@ html[data-project-layout="stacked"] .project-copy .project-body { grid-row: 7; }
 /* Original proportions for the default layout. */
 .project-media .video-stage.narration-stage { aspect-ratio: 1280 / 900; }
 .project-media .video-stage.finance-stage { aspect-ratio: 1728 / 1080; }
-/* Equal carousel frames; contain keeps footage uncropped and letterboxes finance. */
-html[data-project-layout="stacked"] .project-media .video-stage { --recording-ratio: 1.4222222222; width: min(100%, calc(var(--stacked-video-height, 100000px) * var(--recording-ratio))); aspect-ratio: var(--recording-ratio); height: auto; max-height: none; margin-inline: auto; background: #000; }
+/* Full-width native recording proportions, with no crop or added sidebars. */
+html[data-project-layout="stacked"] .project-media .video-stage { --recording-ratio: 1.4222222222; width: 100%; aspect-ratio: var(--recording-ratio); height: auto; max-height: none; margin-inline: auto; background: #000; }
 html[data-project-layout="stacked"] .project-media .finance-stage { --recording-ratio: 1.6; }
 @media (min-width: 601px) {
   html[data-project-layout="stacked"] .projects-section { padding-top: 28px; padding-bottom: 24px; }
   html[data-project-layout="stacked"] .projects-section .section-heading { padding-bottom: 16px; margin-bottom: 20px; }
-  /* Just over half the track keeps a genuine scroll range for two cards,
-     while removing excess space around their native-proportion players. */
-  html[data-project-layout="stacked"] .is-carousel > .project { flex: 0 0 52%; gap: 10px; }
+  /* Cap readable cards on large monitors instead of scaling recordings forever. */
+  html[data-project-layout="stacked"] .is-carousel > .project { flex: 0 0 min(52%, 680px); gap: 10px; }
   html[data-project-layout="stacked"] .project-media figcaption { margin-top: 6px; }
   html[data-project-layout="stacked"] .build-details summary { padding-block: 8px; }
   html[data-project-layout="stacked"] .project-copy .project-context { margin-bottom: 10px; }
+}
+
+/* Project details are a separate, accessible reading surface, not a card overlay. */
+html { scrollbar-gutter: stable; }
+html:has(.build-dialog[open]) { overflow: hidden; }
+.build-dialog { width: min(680px, calc(100% - 32px)); max-height: min(85svh, 800px); padding: 0; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); background: var(--white); box-shadow: 0 24px 80px #0003; }
+.build-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.build-dialog::backdrop { background: #1119; }
+.build-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px; border-bottom: 1px solid var(--line); }
+.build-dialog-header h2 { margin: 0; font-size: clamp(20px, 2.5vw, 26px); line-height: 1.25; font-weight: 600; letter-spacing: -.03em; text-transform: none; }
+.build-dialog-close { flex: none; padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; }
+.build-dialog-close:hover { background: var(--paper); }
+.build-dialog-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.build-dialog > .details-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 24px; font-size: 15px; line-height: 1.7; }
+.build-dialog .details-content h4 { margin: 24px 0 8px; }
+.build-dialog .details-content h4:first-child { margin-top: 0; }
+@media (max-width: 600px) {
+  .build-dialog-header, .build-dialog > .details-content { padding: 18px; }
 }
 @media (max-width: 600px) {
   html[data-project-layout="stacked"] .is-carousel > .project { flex-basis: 92%; gap: 14px; padding: 16px; }

@@ -37,6 +37,45 @@ marqueeToggle?.addEventListener('click', () => {
 // Progressive enhancement: without JavaScript, projects remain ordinary rows.
 const projectTrack = document.querySelector('#project-slides');
 const projectControls = document.querySelector('.project-controls');
+// Keep the inline disclosure as a no-JavaScript fallback. Enhanced details live
+// outside the carousel, so opening them cannot change its measured geometry.
+document.querySelectorAll('.project .build-details').forEach(details => {
+  const project = details.closest('.project');
+  const summary = details.querySelector('summary');
+  const dialog = document.createElement('dialog');
+  dialog.className = 'build-dialog';
+  dialog.id = `${project.id}-build-dialog`;
+  dialog.setAttribute('aria-labelledby', `${dialog.id}-title`);
+  const header = document.createElement('div');
+  header.className = 'build-dialog-header';
+  const title = document.createElement('h2');
+  title.id = `${dialog.id}-title`;
+  title.textContent = project.querySelector('h3').textContent;
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'build-dialog-close';
+  close.textContent = 'Close';
+  close.setAttribute('aria-label', `Close ${title.textContent} build details`);
+  header.append(title, close);
+  const content = details.querySelector('.details-content').cloneNode(true);
+  dialog.append(header, content);
+  document.body.append(dialog);
+  summary.setAttribute('aria-haspopup', 'dialog');
+  summary.setAttribute('aria-controls', dialog.id);
+  summary.addEventListener('click', event => {
+    event.preventDefault();
+    dialog.showModal();
+    close.focus({ preventScroll: true });
+  });
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const bounds = dialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right
+      || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+  });
+  dialog.addEventListener('close', () => summary.focus({ preventScroll: true }));
+});
 if (projectTrack && projectControls) {
   const slides = [...projectTrack.querySelectorAll(':scope > .project')];
   const previous = projectControls.querySelector('.project-prev');
@@ -57,7 +96,6 @@ if (projectTrack && projectControls) {
   let pinDistance = 0;
   let manualHorizontal = false;
   let previousWidth = window.innerWidth;
-  let previousHeight = window.innerHeight;
   projectTrack.classList.add('is-carousel');
   projectTrack.setAttribute('role', 'region');
   projectTrack.setAttribute('aria-roledescription', 'carousel');
@@ -75,6 +113,7 @@ if (projectTrack && projectControls) {
   const resetCardRows = () => slides.forEach(slide => {
     slide.style.minHeight = '';
     slide.style.gridTemplateRows = '';
+    slide.style.height = '';
   });
   const fitHeight = () => {
     const stacked = document.documentElement.dataset.projectLayout === 'stacked';
@@ -103,6 +142,7 @@ if (projectTrack && projectControls) {
     });
     previous.disabled = projectTrack.scrollLeft <= 1;
     next.disabled = projectTrack.scrollLeft >= projectTrack.scrollWidth - projectTrack.clientWidth - 1;
+    projectControls.hidden = projectTrack.scrollWidth <= projectTrack.clientWidth + 1;
     fitHeight();
   };
   const update = index => {
@@ -171,45 +211,15 @@ if (projectTrack && projectControls) {
     const headingStyle = getComputedStyle(heading);
     const sectionChrome = 28 + heading.offsetHeight
       + parseFloat(headingStyle.marginBottom) + parseFloat(sectionStyle.paddingTop) + parseFloat(sectionStyle.paddingBottom);
-    const previousVideoHeight = projectSection.style.getPropertyValue('--stacked-video-height');
-    const keepPlayerSize = previousVideoHeight && previousWidth === window.innerWidth
-      && previousHeight === window.innerHeight && projectTrack.querySelector('details[open]');
-    projectSection.style.removeProperty('--stacked-video-height');
-    if (document.documentElement.dataset.projectLayout === 'stacked' && window.innerWidth > 600) {
-      // Measure the shared text rows at their final card width. Shrinking card
-      // widths made text wrap further, while flex-grow erased the scroll range.
-      fitHeight();
-      // Size media from the collapsed card, never from the extra disclosure
-      // content. Opening details must not reset players to their natural size.
-      slides.forEach(slide => { slide.style.minHeight = ''; });
-      const collapsedHeight = Math.max(...slides.map(slide => {
-        const expandedHeight = [...slide.querySelectorAll('details[open]')].reduce((total, details) =>
-          total + details.offsetHeight - details.querySelector('summary').offsetHeight, 0);
-        return slide.offsetHeight - expandedHeight;
-      }));
-      const mediaHeight = Math.max(...slides.map(slide => slide.querySelector('.project-media').offsetHeight));
-      const captionHeight = Math.max(...slides.map(slide =>
-        slide.querySelector('.project-media').offsetHeight - slide.querySelector('.video-stage').offsetHeight));
-      const nonVideoHeight = collapsedHeight - mediaHeight + captionHeight;
-      const available = Math.floor(window.innerHeight - sectionChrome - nonVideoHeight - 8);
-      // Cap player height, keeping each player's native recording proportions.
-      // Shared media rows align the cards without adding black sidebars.
-      // Expanded/short views remain unpinned
-      // when there isn't enough room for a usable player and all the text.
-      if (available >= 160) {
-        const naturalVideoHeight = Math.min(...slides.map(slide =>
-          slide.querySelector('.video-stage').offsetHeight));
-        projectSection.style.setProperty('--stacked-video-height', keepPlayerSize
-          ? previousVideoHeight : `${Math.min(available, naturalVideoHeight)}px`);
-      }
-    }
+    // Measure real content, not a forced viewport-height box. Short screens use
+    // ordinary page flow rather than clipping videos or hiding their controls.
     pinDistance = slideAnchor(slides.length - 1);
     fitHeight();
     const naturalHeight = Math.max(...slides.map(slide => slide.offsetHeight)) + sectionChrome;
     pinned = window.innerWidth > 600 && !reduceMotion.matches && pinDistance > 0 && naturalHeight <= window.innerHeight;
     projectScene.classList.toggle('is-pinned', pinned);
     projectScene.style.height = pinned ? `${window.innerHeight + pinDistance}px` : '';
-    fitHeight();
+    syncVisibleSlides();
     pinStart = projectScene.getBoundingClientRect().top + window.scrollY;
     if (wasInside && !pinned) {
       // Tall expanded content must remain readable in normal vertical flow.
@@ -221,7 +231,6 @@ if (projectTrack && projectControls) {
       window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
     }
     previousWidth = window.innerWidth;
-    previousHeight = window.innerHeight;
     if (pinned) followPageScroll();
     else stopMotion();
   };
