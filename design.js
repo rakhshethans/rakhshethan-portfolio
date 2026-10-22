@@ -84,7 +84,7 @@ if (projectTrack && projectControls) {
   const projectSection = projectTrack.closest('.projects-section');
   const projectScene = projectSection.parentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const compactProjects = window.matchMedia('(min-width: 1000px) and (max-height: 950px)');
+  const compactProjects = window.matchMedia('(min-width: 1000px) and (max-height: 950px), (min-width: 1000px) and (min-aspect-ratio: 3/2)');
   let current = 0;
   let scrollFrame = 0;
   let motionFrame = 0;
