@@ -1,9 +1,21 @@
-// The opening scroll buffer is part of the scene, not a wheel-event lock.
-function projectScrollOffset(pageOffset, leadIn, distance) {
-  return Math.max(0, Math.min(distance, pageOffset - leadIn));
-}
-function projectPageOffset(horizontalOffset, leadIn) {
-  return horizontalOffset > 0 ? leadIn + horizontalOffset : 0;
+// Wheel events have no portable gesture-end signal. A quiet gap distinguishes
+// fresh input from the arriving gesture's momentum tail.
+function createProjectEntryGate(idleMs = 240) {
+  let phase = 'ready';
+  let lastWheel = -Infinity;
+  return {
+    get phase() { return phase; },
+    enter(now) { phase = 'waiting'; lastWheel = now; },
+    holdWheel(now) {
+      if (phase !== 'waiting') return false;
+      const continuing = now - lastWheel < idleMs;
+      lastWheel = now;
+      if (!continuing) phase = 'active';
+      return continuing;
+    },
+    release() { phase = 'active'; },
+    reset() { phase = 'ready'; lastWheel = -Infinity; }
+  };
 }
 
 // Comparison-only layout: the default portfolio remains side by side.
@@ -103,7 +115,7 @@ if (projectTrack && projectControls) {
   let pinned = false;
   let pinStart = 0;
   let pinDistance = 0;
-  let pinLeadIn = 0;
+  const entryGate = createProjectEntryGate();
   let manualHorizontal = false;
   let previousWidth = window.innerWidth;
   let previousHeight = window.innerHeight;
@@ -180,8 +192,7 @@ if (projectTrack && projectControls) {
     cancelAnimationFrame(motionFrame);
     motionFrame = 0;
   };
-  // Native page scroll supplies progress through a CSS-sticky scene.
-  // Nothing prevents wheel events, locks the document, or snaps after input stops.
+  // After the entry gesture settles, native page scroll drives the sticky scene.
   const animateHorizontal = time => {
     const elapsed = motionTime ? Math.min(time - motionTime, 48) : 16;
     motionTime = time;
@@ -194,7 +205,9 @@ if (projectTrack && projectControls) {
   };
   const followPageScroll = () => {
     if (!pinned || manualHorizontal) return;
-    motionTarget = projectScrollOffset(window.scrollY - pinStart, pinLeadIn, pinDistance);
+    if (window.scrollY < pinStart - 1) entryGate.reset();
+    if (entryGate.phase === 'waiting') { stopMotion(); return; }
+    motionTarget = Math.max(0, Math.min(pinDistance, window.scrollY - pinStart));
     if (!motionFrame && Math.abs(motionTarget - projectTrack.scrollLeft) >= 1) {
       motionTime = 0;
       motionFrame = requestAnimationFrame(animateHorizontal);
@@ -202,10 +215,11 @@ if (projectTrack && projectControls) {
   };
   const goTo = (index, smooth = true) => {
     stopMotion();
+    entryGate.release(); // Explicit arrows, keyboard or project links bypass the gate.
     manualHorizontal = false;
     const target = Math.max(0, Math.min(index, slides.length - 1));
     const behavior = smooth && !reduceMotion.matches ? 'smooth' : 'instant';
-    if (pinned) window.scrollTo({ top: pinStart + projectPageOffset(slideAnchor(target), pinLeadIn), behavior });
+    if (pinned) window.scrollTo({ top: pinStart + slideAnchor(target), behavior });
     else {
       projectTrack.style.height = `${Math.max(slides[current].offsetHeight, slides[target].offsetHeight) + 28}px`;
       projectTrack.scrollTo({ left: slideAnchor(target), behavior });
@@ -221,7 +235,7 @@ if (projectTrack && projectControls) {
   const refreshPinLayout = () => {
     layoutFrame = 0;
     const wasPinned = pinned;
-    const wasInside = wasPinned && window.scrollY >= pinStart && window.scrollY <= pinStart + pinLeadIn + pinDistance;
+    const wasInside = wasPinned && window.scrollY >= pinStart && window.scrollY <= pinStart + pinDistance;
     const fraction = pinDistance ? projectTrack.scrollLeft / pinDistance : 0;
     const before = projectSection.getBoundingClientRect();
     const heading = projectSection.querySelector('.section-heading');
@@ -235,11 +249,9 @@ if (projectTrack && projectControls) {
     fitHeight();
     const naturalHeight = Math.max(...slides.map(slide => slide.offsetHeight)) + sectionChrome;
     pinned = window.innerWidth > 600 && !reduceMotion.matches && pinDistance > 0 && naturalHeight <= window.innerHeight;
-    // Let the first complete card settle into view before horizontal travel.
-    // Continued native scroll consumes this short, viewport-scaled lead-in.
-    pinLeadIn = pinned ? Math.round(Math.max(180, Math.min(360, window.innerHeight * .35))) : 0;
     projectScene.classList.toggle('is-pinned', pinned);
-    projectScene.style.height = pinned ? `${window.innerHeight + pinLeadIn + pinDistance}px` : '';
+    projectScene.style.height = pinned ? `${window.innerHeight + pinDistance}px` : '';
+    if (!pinned) entryGate.reset();
     syncVisibleSlides();
     pinStart = projectScene.getBoundingClientRect().top + window.scrollY;
     if (wasInside && !pinned) {
@@ -247,9 +259,9 @@ if (projectTrack && projectControls) {
       stopMotion();
       window.scrollTo({ top: pinStart, behavior: 'instant' });
     } else if (wasInside && pinned && (previousWidth !== window.innerWidth || previousHeight !== window.innerHeight)) {
-      window.scrollTo({ top: pinStart + projectPageOffset(fraction * pinDistance, pinLeadIn), behavior: 'instant' });
+      window.scrollTo({ top: pinStart + fraction * pinDistance, behavior: 'instant' });
     } else if (!wasPinned && pinned && before.top < window.innerHeight && before.bottom > 0 && window.scrollY >= pinStart - 40) {
-      window.scrollTo({ top: pinStart + projectPageOffset(projectTrack.scrollLeft, pinLeadIn), behavior: 'instant' });
+      window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
     }
     previousWidth = window.innerWidth;
     previousHeight = window.innerHeight;
@@ -263,18 +275,57 @@ if (projectTrack && projectControls) {
     if (!pageFrame) pageFrame = requestAnimationFrame(() => { pageFrame = 0; followPageScroll(); });
   }, { passive: true });
   // Keep horizontal trackpad/scrollbar input aligned with the vertical scene.
-  projectTrack.addEventListener('pointerdown', () => { stopMotion(); manualHorizontal = true; });
+  projectTrack.addEventListener('pointerdown', event => {
+    stopMotion(); manualHorizontal = true;
+    if (event.target === projectTrack) entryGate.release(); // Native horizontal scrollbar.
+  });
   window.addEventListener('pointerdown', event => {
     if (!projectTrack.contains(event.target)) manualHorizontal = false;
   });
   window.addEventListener('keydown', event => {
-    if (['PageDown', 'PageUp', ' ', 'Home', 'End', 'ArrowUp', 'ArrowDown'].includes(event.key)) manualHorizontal = false;
+    if (event.target.closest?.('input, textarea, select, video, dialog, [contenteditable="true"]')) return;
+    if (['PageDown', 'PageUp', ' ', 'Home', 'End', 'ArrowUp', 'ArrowDown', 'Escape'].includes(event.key)) {
+      entryGate.release();
+      manualHorizontal = false;
+    }
+  });
+  window.addEventListener('click', event => {
+    if (event.target.closest?.('a[href*="#"]')) entryGate.release();
   });
   window.addEventListener('wheel', event => {
-    if (event.ctrlKey || event.metaKey || event.altKey) return;
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX) && !event.shiftKey) manualHorizontal = false;
-    else if (projectTrack.contains(event.target)) { stopMotion(); manualHorizontal = true; }
-  }, { passive: true });
+    if (event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented
+      || event.target.closest?.('dialog[open]')) return;
+    const vertical = Math.abs(event.deltaY) > Math.abs(event.deltaX) && !event.shiftKey;
+    if (!vertical) {
+      if (projectTrack.contains(event.target)) { entryGate.release(); stopMotion(); manualHorizontal = true; }
+      return;
+    }
+    manualHorizontal = false;
+    if (!pinned) return;
+    if (window.scrollY < pinStart - 1) entryGate.reset();
+    if (event.deltaY < 0) { entryGate.release(); return; } // Never trap upward navigation.
+    const now = performance.now();
+    const pixels = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1);
+    const entering = entryGate.phase === 'ready' && window.scrollY <= pinStart + 1
+      && window.scrollY + pixels >= pinStart;
+    if (entering) entryGate.enter(now);
+    const hold = entering || entryGate.holdWheel(now);
+    if (hold) {
+      // Consume only the arrival gesture. No body lock, delayed jump or extra
+      // distance buffer: the next gesture moves smoothly from this point.
+      if (event.cancelable) event.preventDefault();
+      stopMotion();
+      projectTrack.scrollTo({ left: 0, behavior: 'instant' });
+      window.scrollTo({ top: pinStart, behavior: 'instant' });
+      // Some browsers make late momentum events non-cancelable. Correct their
+      // native movement on the next frame, only while this entry hold remains.
+      if (!event.cancelable) requestAnimationFrame(() => {
+        if (pinned && entryGate.phase === 'waiting') window.scrollTo({ top: pinStart, behavior: 'instant' });
+      });
+    } else if (entryGate.phase === 'ready' && window.scrollY > pinStart + 1) {
+      entryGate.release(); // Restored/deep-linked positions must not rewind.
+    }
+  }, { passive: false });
   previous.addEventListener('click', () => moveToNeighbour(-1));
   next.addEventListener('click', () => moveToNeighbour(1));
   projectTrack.addEventListener('keydown', event => {
@@ -292,7 +343,7 @@ if (projectTrack && projectControls) {
   projectTrack.addEventListener('scroll', () => {
     if (!scrollFrame) scrollFrame = requestAnimationFrame(() => {
       scrollFrame = 0;
-      if (pinned && manualHorizontal) window.scrollTo({ top: pinStart + projectPageOffset(projectTrack.scrollLeft, pinLeadIn), behavior: 'instant' });
+      if (pinned && manualHorizontal) window.scrollTo({ top: pinStart + projectTrack.scrollLeft, behavior: 'instant' });
       syncVisibleSlides();
       const nearest = slides.reduce((best, slide, i) => Math.abs(slideAnchor(i) - projectTrack.scrollLeft) < Math.abs(slideAnchor(best) - projectTrack.scrollLeft) ? i : best, 0);
       if (nearest !== current) update(nearest);
