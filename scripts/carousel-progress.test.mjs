@@ -7,7 +7,7 @@ import vm from 'node:vm';
 const scope = {
   URLSearchParams,
   window: { location: { search: '' }, matchMedia: () => ({ matches: false }) },
-  document: { querySelector: () => null, querySelectorAll: () => [] }
+  document: { documentElement: { dataset: {} }, querySelector: () => null, querySelectorAll: () => [] }
 };
 vm.createContext(scope);
 vm.runInContext(readFileSync(new URL('../design.js', import.meta.url), 'utf8'), scope);

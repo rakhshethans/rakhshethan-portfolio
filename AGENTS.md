@@ -10,4 +10,4 @@
 - Complete visual browser verification whenever changing the site; inspect desktop and mobile for layout/style changes. Report a browser blocker honestly.
 - Do not use the Sites skill.
 
-The development branch includes both the default split presentation and the optional `?layout=stacked` comparison. Backing up this branch to GitHub does not grant permission to publish either presentation.
+The development branch uses the chosen responsive carousel at the default homepage URL; `?layout=stacked` is retained only as a compatible old bookmark. Public-ready metadata does not mean the changes are deployed. Backing up this branch to GitHub does not grant permission to publish it.

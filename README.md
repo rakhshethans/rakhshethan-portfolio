@@ -6,7 +6,15 @@ Current design work is backed up on `development`, separately from the live `mai
 
 After cloning, enable the local protection with `git config core.hooksPath .githooks`. Pushes fail closed until Vercel deployment safety has been checked and locally attested. Run `node --test scripts/push-guard.test.mjs` to check the push guard. Never use `--no-verify` to bypass it.
 
-The existing local preview supports `?layout=stacked` for the carousel comparison; the default URL retains the split presentation.
+The chosen responsive project carousel is now the default at `/`; no query parameter is required. Existing `?layout=stacked` bookmarks show the same layout. Cards adapt to the viewport, retain matching video frames and use a fresh-scroll entry hold when pinned.
+
+## Production candidate (not yet published)
+
+`index.html` contains the public page title, indexable metadata, canonical URL and absolute social-image URL for `https://rakhshethan-portfolio.vercel.app/`. The preview banner is removed. These file changes do not publish the site or authorize a push/merge/deployment.
+
+The workspace preview server (`work/narration-demo/serve-preview.mjs`, run from the parent workspace) binds only to `127.0.0.1:8032` and sends `X-Robots-Tag: noindex, nofollow`. Keep local preview protection separate from public HTML metadata. The development deployment safeguard in `vercel.json` must remain disabled.
+
+Run all regression checks with `node --test scripts/*.test.mjs`. Before an approved release, smoke-test the normal URL, CV, recorded demos, source links and mobile layout; retain the previous production deployment for rollback.
 
 A concise, responsive application portfolio for software engineering internships and spring weeks.
 

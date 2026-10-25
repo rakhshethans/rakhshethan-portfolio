@@ -18,15 +18,14 @@ function createProjectEntryGate(idleMs = 240) {
   };
 }
 
-// Comparison-only layout: the default portfolio remains side by side.
-if (new URLSearchParams(window.location.search).get('layout') === 'stacked') {
-  document.documentElement.dataset.projectLayout = 'stacked';
-  // Match keyboard/screen-reader order to the comparison's visual order.
-  document.querySelectorAll('.project').forEach(project => {
-    const copy = project.querySelector('.project-copy');
-    copy.insertBefore(project.querySelector('.project-media'), copy.querySelector('.source-link'));
-  });
-}
+// The chosen responsive carousel is the default at the canonical homepage.
+// Old ?layout=stacked bookmarks still work, but no query flag is required.
+document.documentElement.dataset.projectLayout = 'stacked';
+// Match keyboard/screen-reader order to the responsive card's visual order.
+document.querySelectorAll('.project').forEach(project => {
+  const copy = project.querySelector('.project-copy');
+  copy.insertBefore(project.querySelector('.project-media'), copy.querySelector('.source-link'));
+});
 
 // Baseline content is visible and usable without the optional animation library.
 if (window.gsap) {
